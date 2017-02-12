@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-cloak ng-app="myToDo">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My AngularJS App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body ng-controller="todoCtrl">
+  <div class="container">
+      <div class="input-group">
+           <input type="text" ng-model="search" class="form-control" placeholder="Search Task">
+           <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+       </div>
+    <br>
+    <br>
+    <div class="col-xs-8 col-sm-8 col-md-offset-3 col-md-5 col-lg-offset-3 col-lg-5">
+      <form class="form" ng-submit="addTask()">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="task" autofocus>
+          <span class="input-group-btn">
+            <button class="btn btn-default" ng-click="addTask()" type="button"><span
+              class="glyphicon glyphicon-plus"></span> Add Task</button>
+          </span>
+        </div>
+      </form>
+      <h4 style="text-align: center">You've <span style="font-size: 4em" class="emphasis" ng-bind="count"></span> item<span ng-if="taskList.length > 1">s</span> your bucket.</h1>
+      <hr/>
+      
+      <ul class="list-group" ng-if="taskList.length > 0">
+        <li class="list-group-item clearfix task" ng-repeat="todo in taskList | filter:search" ng-class="{disabled: todo.isDone}"> 
+          <p class="lead" ng-bind="todo.task"></p>
+          <div>
+            <span class="pull-right">
+              <button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" 
+                ng-click="updateTask($index)"></span></button>
+              <button class="btn btn-primary btn-xs" ng-show="!todo.isDone"><span class="glyphicon glyphicon-ok" 
+                ng-click="completeTask($index)"></span></button>
+              <button class="btn btn-primary btn-xs" ng-show="todo.isDone"><span class="glyphicon glyphicon-repeat" 
+                ng-click="inCompleteTask($index)"></span></button>
+              <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" 
+                ng-click="deleteTask($index)"></span></button>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="app.js"></script>
+  <script src="services/localStorageSvc.js"></script>
+  <script src="controllers/todoCtrl.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
